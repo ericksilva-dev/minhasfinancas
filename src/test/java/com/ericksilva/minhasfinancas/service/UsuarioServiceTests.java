@@ -90,5 +90,15 @@ public class UsuarioServiceTests {
 	public void deveSalvarUmUsuario() {
 		//cenario
 		Mockito.doNothing().when(service).validarEmail(Mockito.anyString());
+		Usuario usuario = new Usuario(1l, "usuario", "usuario@email.com", "senha");
+		Mockito.when(repositoryMock.save(Mockito.any(Usuario.class))).thenReturn(usuario);
+		//ação
+		Usuario usuarioSalvo = service.salvarUsuario(new Usuario());
+		//verificação
+		Assertions.assertThat(usuarioSalvo).isNotNull();
+		Assertions.assertThat(usuarioSalvo.getId()).isEqualTo(1l);
+		Assertions.assertThat(usuarioSalvo.getNome()).isEqualTo("usuario");
+		Assertions.assertThat(usuarioSalvo.getEmail()).isEqualTo("usuario@email.com");
+		Assertions.assertThat(usuarioSalvo.getSenha()).isEqualTo("senha");
 	}
 }
