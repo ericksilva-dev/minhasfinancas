@@ -101,4 +101,18 @@ public class UsuarioServiceTests {
 		Assertions.assertThat(usuarioSalvo.getEmail()).isEqualTo("usuario@email.com");
 		Assertions.assertThat(usuarioSalvo.getSenha()).isEqualTo("senha");
 	}
+	
+	@Test(expected = RegraNegocioException.class)
+	public void naoDeveSalvarUsuario() {
+		//cenário
+		String email = "usuario@email.com";
+		Usuario usuario = new Usuario("usuario", email);
+		Mockito.doThrow(RegraNegocioException.class).when(service).validarEmail(email);
+		//ação
+		service.salvarUsuario(usuario);
+		
+		//verificação
+		Mockito.verify(repositoryMock, Mockito.never()).save(usuario);
+	}
+	
 }
