@@ -17,8 +17,17 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "lancamento", schema = "financas")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Lancamento {
 	
 	private static final String Jsr310JpaCon = null;
