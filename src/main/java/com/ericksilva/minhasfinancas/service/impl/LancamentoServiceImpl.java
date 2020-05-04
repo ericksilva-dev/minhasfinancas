@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
+import org.springframework.stereotype.Service;
 
 import com.ericksilva.minhasfinancas.exceptions.RegraNegocioException;
 import com.ericksilva.minhasfinancas.model.entity.Lancamento;
@@ -17,6 +18,7 @@ import com.ericksilva.minhasfinancas.model.entity.StatusLancamento;
 import com.ericksilva.minhasfinancas.model.repository.LancamentoRepository;
 import com.ericksilva.minhasfinancas.service.LancamentoService;
 
+@Service
 public class LancamentoServiceImpl implements LancamentoService {
 	
 	private LancamentoRepository repository;

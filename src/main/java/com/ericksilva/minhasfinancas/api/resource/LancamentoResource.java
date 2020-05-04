@@ -41,9 +41,9 @@ public class LancamentoResource {
 		try {
 			Lancamento entidade = converte(dto);
 			entidade = service.salvar(entidade);
-			return ResponseEntity.ok(entidade);
+			return new ResponseEntity(entidade, HttpStatus.CREATED);
 		} catch (RegraNegocioException e) {
-			return ResponseEntity.badRequest().body(e);
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 	
@@ -102,12 +102,18 @@ public class LancamentoResource {
 		lancamento.setMes(dto.getMes());
 		lancamento.setValor(dto.getValor());
 		
-		Usuario usuario = usuarioService.obterPorId(dto.getId())
+		Usuario usuario = usuarioService.obterPorId(dto.getIdUsuario())
 		.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
 		
 		lancamento.setUsuario(usuario);
-		lancamento.setTipo(TipoLancamento.valueOf(dto.getTipo()));
-		lancamento.setLancamento((StatusLancamento.valueOf(dto.getStatus())));
+		
+		if(dto.getTipo() != null) {
+			lancamento.setTipo(TipoLancamento.valueOf(dto.getTipo()));
+		}
+		
+		if(dto.getStatus() != null) {
+			lancamento.setLancamento((StatusLancamento.valueOf(dto.getStatus())));
+		} 
 		
 		return lancamento;
 	}
