@@ -62,8 +62,8 @@ public class LancamentoResource {
 		}).orElseGet( () -> new ResponseEntity("Lançamento não atualizado", HttpStatus.BAD_REQUEST));
 	}
 	
-	@PutMapping("{id}/atualiza-status")
-	public ResponseEntity atualizarStatus( @PathVariable("id") Long id, @RequestBody AtualizaStatusDTO dto) {
+	@PutMapping("{idLancamento}/atualiza-status")
+	public ResponseEntity atualizarStatus( @PathVariable("idLancamento") Long id, @RequestBody AtualizaStatusDTO dto) {
 		return service.obterPorId(id).map( entity -> {
 			StatusLancamento statusSelecionado = StatusLancamento.valueOf(dto.getStatus());
 			if(statusSelecionado == null) {
@@ -111,6 +111,8 @@ public class LancamentoResource {
 		return ResponseEntity.ok(lancamentos);
 		
 	}
+	
+	
 	
 	private Lancamento converte(LancamentoDTO dto) {
 		Lancamento lancamento = new Lancamento();
